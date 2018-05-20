@@ -3,7 +3,7 @@
 
 Golang tcp,rpc pool,support rpc timeout
 
-## 基本用法
+## usage
 ```go
 package main
 

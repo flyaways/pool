@@ -17,7 +17,9 @@ import (
 	"github.com/flyaways/pool"
 )
 
-func newPool(network, address string, initialCap, maxCap int, dialTimeout, idleTimeout, rpcTimeout time.Duration) (pool.Pool, error) {
+func newPool(network, address string, 
+initialCap, maxCap int, 
+dialTimeout, idleTimeout, rpcTimeout time.Duration) (pool.Pool, error) {
 	factory := func() (interface{}, error) {
 		conn, err := net.DialTimeout("tcp", address, dialTimeout)
 		if err != nil {
@@ -98,7 +100,7 @@ func main() {
 
 #### reference
  [https://github.com/fatih/pool](https://github.com/fatih/pool)
- 
+
  [https://github.com/silenceper/pool]( https://github.com/silenceper/pool)
 
  [https://github.com/daizuozhuo/rpc-example]( https://github.com/daizuozhuo/rpc-example)

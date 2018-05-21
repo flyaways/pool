@@ -1,5 +1,4 @@
 # pool
-[![GoDoc](http://godoc.org/github.com/silenceper/pool?status.svg)](http://godoc.org/github.com/silenceper/pool)
 
 Golang tcp,rpc pool,support rpc timeout
 

@@ -62,11 +62,9 @@ func main() {
 ```
 
 ## Reference
- [https://github.com/fatih/pool](https://github.com/fatih/pool)
-
- [https://github.com/silenceper/pool]( https://github.com/silenceper/pool)
-
- [https://github.com/daizuozhuo/rpc-example]( https://github.com/daizuozhuo/rpc-example)
+ * [https://github.com/fatih/pool](https://github.com/fatih/pool)
+ * [https://github.com/silenceper/pool]( https://github.com/silenceper/pool)
+ * [https://github.com/daizuozhuo/rpc-example]( https://github.com/daizuozhuo/rpc-example)
 
 ## License
-The MIT License (MIT) - see LICENSE for more details
+* The MIT License (MIT) - see LICENSE for more details

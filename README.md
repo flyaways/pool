@@ -1,9 +1,15 @@
 # pool
 
-Golang tcp,rpc pool,support rpc timeout
+pool is Used to manage and reuse connections.
+thread safe connection pool for tcp,rpc. 
+Support rpc timeout.
 
-## usage
+## Install
+```sh
+go get -u github.com/flyaways/pool
+```
 
+## Example
 ```go
 package main
 
@@ -56,7 +62,6 @@ func main() {
 ```
 
 ## Reference
-
  [https://github.com/fatih/pool](https://github.com/fatih/pool)
 
  [https://github.com/silenceper/pool]( https://github.com/silenceper/pool)
@@ -64,5 +69,4 @@ func main() {
  [https://github.com/daizuozhuo/rpc-example]( https://github.com/daizuozhuo/rpc-example)
 
 ## License
-
 The MIT License (MIT) - see LICENSE for more details

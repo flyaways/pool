@@ -1,4 +1,8 @@
 # pool
+[![Go Report Card](https://goreportcard.com/badge/github.com/flyaways/pool?style=flat-square)](https://goreportcard.com/report/github.com/flyaways/pool)
+[![Build Status Travis](https://travis-ci.org/flyaways/pool.svg?branch=master)](https://travis-ci.org/flyaways/pool)
+[![Build Status Semaphore](https://semaphoreci.com/api/v1/flyaways/pool/branches/master/shields_badge.svg)](https://semaphoreci.com/flyaways/pool)
+[![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
 
 pool is Used to manage and reuse connections.
 thread safe connection pool for tcp,rpc. 

@@ -1,4 +1,6 @@
 # pool
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fflyaways%2Fpool.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fflyaways%2Fpool?ref=badge_shield)
+
 
 pool is Used to manage and reuse connections.
 thread safe connection pool for tcp,rpc. 
@@ -68,3 +70,6 @@ func main() {
 
 ## License
 * The MIT License (MIT) - see LICENSE for more details
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fflyaways%2Fpool.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fflyaways%2Fpool?ref=badge_large)

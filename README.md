@@ -26,7 +26,7 @@ import (
 )
 
 func main() { 
-	//创建连接吃
+	//创建连接池
 	p, err := pool.NewChannelPool(&PoolConfig{
 		InitialCap:  5,
 		MaxCap:      30,

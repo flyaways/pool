@@ -5,7 +5,7 @@
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
 
 pool is Used to manage and reuse connections.
-thread safe connection pool for tcp,rpc. 
+thread safe connection pool for tcp,rpc,grpc. 
 Support rpc timeout.
 
 ## Install
@@ -22,25 +22,29 @@ import (
 	"time"
 
 	"github.com/flyaways/pool"
+	"google.golang.org/grpc"
 )
 
-func main() {
-	p, err := pool.New(
-		"tcp",
-		"127.0.0.1:8080",
-		5,
-		30,
-		time.Second*5, //dialTimeout
-		time.Second*5, //idleTimeout
-	)
+func main() { 
+	p, err := pool.NewChannelPool(&PoolConfig{
+		InitialCap:  5,
+		MaxCap:      30,
+		Factory:     pool.FactoryGRPC,
+		Close:       pool.CloseGRPC,
+		IdleTimeout: time.Second*5,
+		DialTimeout:time.Second*5,
+		 DialOptions:[]grpc.DialOption{
+         	grpc.WithInsecure()
+		 },
+	})
 
 	if err != nil {
-		fmt.Printf("%#v\n", err)
+		log.Printf("%#v\n", err)
 		return
 	}
 
 	if p == nil {
-		fmt.Printf("p= %#v\n", p)
+		log.Printf("p= %#v\n", p)
 		return
 	}
 
@@ -48,19 +52,19 @@ func main() {
 
 	v, err := p.Get()
 	if err != nil {
-		fmt.Printf("%#v\n", err)
+		log.Printf("%#v\n", err)
 		return
 	}
 
 	//todo
-	//conn=v.(net.Conn)
+	//conn=v.(*grpc.ClientConn)
 
 	if p.Put(v) != nil {
-		fmt.Printf("%#v\n", err)
+		log.Printf("%#v\n", err)
 		return
 	}
 
-	fmt.Printf("len=%d\n", p.Len())
+	log.Printf("len=%d\n", p.Len())
 }
 
 ```

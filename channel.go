@@ -2,24 +2,11 @@ package pool
 
 import (
 	"errors"
-	"fmt"
 	"sync"
 	"time"
 )
 
-//PoolConfig 连接池相关配置
-type PoolConfig struct {
-	//连接池中拥有的最小连接数
-	InitialCap int
-	//连接池中拥有的最大的连接数
-	MaxCap int
-	//生成连接的方法
-	Factory func() (interface{}, error)
-	//关闭链接的方法
-	Close func(interface{}) error
-	//链接最大空闲时间，超过该事件则将失效
-	IdleTimeout time.Duration
-}
+var errClosed = errors.New("pool is closed")
 
 //channelPool 存放链接信息
 type channelPool struct {
@@ -35,31 +22,6 @@ type idleConn struct {
 	t    time.Time
 }
 
-//NewChannelPool 初始化链接
-func NewChannelPool(poolConfig *PoolConfig) (Pool, error) {
-	if poolConfig.InitialCap < 0 || poolConfig.MaxCap <= 0 || poolConfig.InitialCap > poolConfig.MaxCap {
-		return nil, errors.New("invalid capacity settings")
-	}
-
-	c := &channelPool{
-		conns:       make(chan *idleConn, poolConfig.MaxCap),
-		factory:     poolConfig.Factory,
-		close:       poolConfig.Close,
-		idleTimeout: poolConfig.IdleTimeout,
-	}
-
-	for i := 0; i < poolConfig.InitialCap; i++ {
-		conn, err := c.factory()
-		if err != nil {
-			c.Release()
-			return nil, fmt.Errorf("factory is not able to fill the pool: %s", err)
-		}
-		c.conns <- &idleConn{conn: conn, t: time.Now()}
-	}
-
-	return c, nil
-}
-
 //getConns 获取所有连接
 func (c *channelPool) getConns() chan *idleConn {
 	c.mu.Lock()
@@ -72,13 +34,13 @@ func (c *channelPool) getConns() chan *idleConn {
 func (c *channelPool) Get() (interface{}, error) {
 	conns := c.getConns()
 	if conns == nil {
-		return nil, ErrClosed
+		return nil, errClosed
 	}
 	for {
 		select {
 		case wrapConn := <-conns:
 			if wrapConn == nil {
-				return nil, ErrClosed
+				return nil, errClosed
 			}
 			//判断是否超时，超时则丢弃
 			if timeout := c.idleTimeout; timeout > 0 {

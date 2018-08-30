@@ -3,17 +3,11 @@ package pool
 import (
 	"reflect"
 	"testing"
-	"time"
 )
 
-func TestNew(t *testing.T) {
+func TestNewChannelPool(t *testing.T) {
 	type args struct {
-		network     string
-		address     string
-		initialCap  int
-		maxCap      int
-		dialTimeout time.Duration
-		idleTimeout time.Duration
+		poolConfig *PoolConfig
 	}
 	tests := []struct {
 		name    string
@@ -25,13 +19,13 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := New(tt.args.network, tt.args.address, tt.args.initialCap, tt.args.maxCap, tt.args.dialTimeout, tt.args.idleTimeout)
+			got, err := NewChannelPool(tt.args.poolConfig)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("NewChannelPool() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+				t.Errorf("NewChannelPool() = %v, want %v", got, tt.want)
 			}
 		})
 	}

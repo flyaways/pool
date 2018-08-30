@@ -26,7 +26,7 @@ import (
 )
 
 func main() { 
-	//创建连接池
+	//初始化创建连接池
 	p, err := pool.NewChannelPool(&PoolConfig{
 		InitialCap:  5,
 		MaxCap:      30,
@@ -39,11 +39,13 @@ func main() {
 		 },
 	})
 
+	//异常处理
 	if err != nil {
 		log.Printf("%#v\n", err)
 		return
 	}
 
+	//异常处理
 	if p == nil {
 		log.Printf("p= %#v\n", p)
 		return
@@ -59,14 +61,16 @@ func main() {
 		return
 	}
 
-	//todo
+	//todo 执行业务逻辑
 	//conn=v.(*grpc.ClientConn)
 
-	//用完放回连接
-	if p.Put(v) != nil {
-		log.Printf("%#v\n", err)
-		return
-	}
+	//放回连接池
+	defer func() {
+		if p.Put(v) != nil {
+			log.Printf("%#v\n", err)
+			return
+		}
+	}()
 
 	//打印连接池大小
 	log.Printf("len=%d\n", p.Len())

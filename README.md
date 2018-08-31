@@ -5,7 +5,7 @@
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
 
 pool is Used to manage and reuse connections.
-thread safe connection pool for tcp,rpc,grpc. 
+thread safe connection pool for grpc,rpc,tcp. 
 Support rpc timeout.
 
 ## Install

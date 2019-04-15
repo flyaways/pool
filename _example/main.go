@@ -1,60 +1,46 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	"github.com/flyaways/pool"
 	"google.golang.org/grpc"
 )
 
-func main() { 
-	//初始化创建连接池
-	p, err := pool.NewChannelPool(&PoolConfig{
-		InitialCap:  5,
-		MaxCap:      30,
-		Factory:     pool.FactoryGRPC,
-		Close:       pool.CloseGRPC,
-		IdleTimeout: time.Second*5,
-		DialTimeout:time.Second*5,
-		 DialOptions:[]grpc.DialOption{
-         	grpc.WithInsecure()
-		 },
-	})
+func main() {
+	p, err := pool.NewGRPCPool(&pool.Options{
+		InitTargets:  []string{"127.0.0.1:8080"},
+		InitCap:      5,
+		MaxCap:       30,
+		DialTimeout:  time.Second * 5,
+		IdleTimeout:  time.Second * 60,
+		ReadTimeout:  time.Second * 5,
+		WriteTimeout: time.Second * 5,
+	}, grpc.WithInsecure())
 
-	//异常处理
 	if err != nil {
 		log.Printf("%#v\n", err)
 		return
 	}
 
-	//异常处理
 	if p == nil {
 		log.Printf("p= %#v\n", p)
 		return
 	}
 
-	//释放连接池
-	defer p.Release()
+	defer p.Close()
 
-	//获取一个连接
-	v, err := p.Get()
+	conn, err := p.Get()
 	if err != nil {
 		log.Printf("%#v\n", err)
 		return
 	}
 
-	//todo 执行业务逻辑
-	//conn=v.(*grpc.ClientConn)
+	defer p.Put(conn)
 
-	//放回连接池
-	defer func() {
-		if p.Put(v) != nil {
-			log.Printf("%#v\n", err)
-			return
-		}
-	}()
+	//todo
+	//conn.DoSomething()
 
-	//打印连接池大小
-	log.Printf("len=%d\n", p.Len())
+	log.Printf("len=%d\n", p.IdleCount())
 }

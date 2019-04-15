@@ -20,7 +20,12 @@ Pool runs on Linux, Mac OS X, and Windows.
 
 ## Install
 ```sh
-go get -u github.com/flyaways/pool
+go get -u gopkg.in/flyaways/pool.v1
+```
+## Usage
+
+```go
+import "gopkg.in/flyaways/pool.v1"
 ```
 
 ## Example
@@ -31,7 +36,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/flyaways/pool"
+	"gopkg.in/flyaways/pool.v1"
 	"google.golang.org/grpc"
 )
 

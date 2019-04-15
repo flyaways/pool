@@ -8,13 +8,13 @@ Pool is Used to manage and reuse client connections to service cluster.
 
 Pool provides several key features:
 
+* **General Purpose** - Pool for GRPC,RPC,TCP.support RPC timeout.
+
 * **Support Cluster** - Connet to Cluster.
 
 * **Danamic Update** - Danamic update targets.
 
-* **General Purpose** - Pool for GRPC,RPC,TCP.support RPC timeout.
-
-Consul runs on Linux, Mac OS X, and Windows.
+Pool runs on Linux, Mac OS X, and Windows.
 
 **Note**: Random to pick a target to get one connection,just now.
 

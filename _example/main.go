@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/flyaways/pool"
+	"gopkg.in/flyaways/pool.v1"
 	"google.golang.org/grpc"
 )
 

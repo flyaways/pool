@@ -5,8 +5,18 @@
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
 
 Pool is Used to manage and reuse client connections to service cluster.
-thread safe connection pool for GRPC,RPC,TCP. 
-Support rpc timeout.
+
+Pool provides several key features:
+
+* **Support Cluster** - Connet to Cluster.
+
+* **Danamic Update** - Danamic update targets.
+
+* **General Purpose** - Pool for GRPC,RPC,TCP.support RPC timeout.
+
+Consul runs on Linux, Mac OS X, and Windows.
+
+**Note**: Random to pick a target to get one connection,just now.
 
 ## Install
 ```sh

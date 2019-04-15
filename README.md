@@ -5,6 +5,7 @@
 [![Build Status Travis](https://travis-ci.org/flyaways/pool.svg?branch=master)](https://travis-ci.org/flyaways/pool)
 [![Build Status Semaphore](https://semaphoreci.com/api/v1/flyaways/pool/branches/master/shields_badge.svg)](https://semaphoreci.com/flyaways/pool)
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/release/flyaways/pool.svg?style=flat-square)](https://github.com/flyaways/pool/releases)
 
 Pool is Used to manage and reuse client connections to service cluster.
 

@@ -9,8 +9,8 @@
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
 [![Release](https://img.shields.io/github/release/flyaways/pool.svg?style=flat-square)](https://github.com/flyaways/pool/releases)
 
-Pool is Used to manage and reuse client connections to service cluster.
-
+Pool is Used to manage and reuse client connections to service cluster.No reflect
+!
 Pool provides several key features:
 
 * **General Purpose** - Pool for GRPC,RPC,TCP.support RPC timeout.
@@ -21,7 +21,7 @@ Pool provides several key features:
 
 Pool runs on Linux, Mac OS X, and Windows.
 
-**Note**: Random to pick a target to get one connection,just now.
+**Note**: Random to pick a target to get one connection for loadbalance.
 
 ## Install
 ```sh
@@ -94,6 +94,12 @@ func main() {
  * [https://github.com/fatih/pool](https://github.com/fatih/pool)
  * [https://github.com/silenceper/pool]( https://github.com/silenceper/pool)
  * [https://github.com/daizuozhuo/rpc-example]( https://github.com/daizuozhuo/rpc-example)
+ 
+## Contribution Welcomed !
+
+Contributors
+
+* [flyaways](https://github.com/flyaways) 
 
 ## License
 * The MIT License (MIT) - see LICENSE for more details

@@ -8,8 +8,7 @@
 [![Open Source Helpers](https://www.codetriage.com/flyaways/pool/badges/users.svg)](https://www.codetriage.com/flyaways/pool)
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
 [![Release](https://img.shields.io/github/release/flyaways/pool.svg?style=flat-square)](https://github.com/flyaways/pool/releases)
-[![LICENSE](https://img.shields.io/badge/license-Anti996-blue.svg)]
-(https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 
 Pool is Used to manage and reuse client connections to service cluster.

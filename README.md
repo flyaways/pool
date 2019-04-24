@@ -7,7 +7,7 @@
 [![Sourcegraph](https://sourcegraph.com/github.com/flyaways/pool/-/badge.svg)](https://sourcegraph.com/github.com/flyaways/pool?badge)
 [![Open Source Helpers](https://www.codetriage.com/flyaways/pool/badges/users.svg)](https://www.codetriage.com/flyaways/pool)
 [![LICENSE](https://img.shields.io/badge/licence-Apache%202.0-brightgreen.svg?style=flat-square)](https://github.com/flyaways/pool/blob/master/LICENSE)
-[![Release](https://img.shields.io/github/release/flyaways/pool.svg?style=flat-square)](https://github.com/flyaways/pool/releases)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/flyaways/pool.svg)
 ![GitHub All Releases](https://img.shields.io/github/downloads/flyaways/pool/total.svg)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 

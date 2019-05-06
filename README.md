@@ -59,7 +59,10 @@ func main() {
 		WriteTimeout: time.Second * 5,
 	}
 
-	p, err := pool.NewGRPCPool(options, grpc.WithInsecure())
+	
+	p, err := pool.NewGRPCPool(options, grpc.WithInsecure() //for grpc
+	//p, err := pool.NewRPCPool(options) 			//for rpc
+	//p, err := pool.NewTCPPool(options)			//for tcp
 
 	if err != nil {
 		log.Printf("%#v\n", err)

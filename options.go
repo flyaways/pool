@@ -12,6 +12,7 @@ var (
 	errInvalid  = errors.New("invalid config")
 	errRejected = errors.New("connection is nil. rejecting")
 	errTargets  = errors.New("targets server is empty")
+	errTooMany  = errors.New("too many connections")
 )
 
 func init() {

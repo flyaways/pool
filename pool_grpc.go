@@ -2,10 +2,10 @@ package pool
 
 import (
 	"context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/connectivity"
 	"sync"
 	"time"
-
-	"google.golang.org/grpc"
 )
 
 //GRPCPool pool info
@@ -15,6 +15,8 @@ type GRPCPool struct {
 	conns       chan *grpcIdleConn
 	factory     func() (*grpc.ClientConn, error)
 	close       func(*grpc.ClientConn) error
+	maxConns    int
+	minConns    int
 }
 
 type grpcIdleConn struct {
@@ -45,8 +47,18 @@ func (c *GRPCPool) Get() (*grpc.ClientConn, error) {
 					continue
 				}
 			}
+
+			//判断链接状态
+			if wrapConn.conn.GetState() != connectivity.Ready {
+				c.close(wrapConn.conn)
+				continue
+			}
+
 			return wrapConn.conn, nil
 		default:
+			if c.IdleCount() >= c.maxConns {
+				return nil, errTooMany
+			}
 			conn, err := c.factory()
 			if err != nil {
 				return nil, err
@@ -107,6 +119,35 @@ func (c *GRPCPool) IdleCount() int {
 	return len(conns)
 }
 
+//CheckGRPCPool check connection count
+func (c *GRPCPool) CheckGRPCPool() {
+	for {
+
+		// add conn
+		if len(c.conns) < c.minConns {
+			add := c.minConns - len(c.conns)
+			for i := 0; i < add; i++ {
+				conn, _ := c.factory()
+				c.Put(conn)
+			}
+		}
+
+		// disc conn
+		if len(c.conns) > c.minConns {
+			disc := len(c.conns) - c.minConns
+			c.Mu.Lock()
+			conns := c.conns
+			c.Mu.Unlock()
+			for i := 0; i < disc; i++ {
+				wrapConn := <-conns
+				c.close(wrapConn.conn)
+			}
+		}
+
+		time.Sleep(time.Second * 10)
+	}
+}
+
 //NewGRPCPool init grpc pool
 func NewGRPCPool(o *Options, dialOptions ...grpc.DialOption) (*GRPCPool, error) {
 	if err := o.validate(); err != nil {
@@ -129,6 +170,8 @@ func NewGRPCPool(o *Options, dialOptions ...grpc.DialOption) (*GRPCPool, error) 
 		},
 		close:       func(v *grpc.ClientConn) error { return v.Close() },
 		IdleTimeout: o.IdleTimeout,
+		maxConns:    o.MaxCap,
+		minConns:    o.InitCap,
 	}
 
 	//danamic update targets
@@ -143,6 +186,9 @@ func NewGRPCPool(o *Options, dialOptions ...grpc.DialOption) (*GRPCPool, error) 
 		}
 		pool.conns <- &grpcIdleConn{conn: conn, t: time.Now()}
 	}
+
+	//check connection count
+	go pool.CheckGRPCPool()
 
 	return pool, nil
 }

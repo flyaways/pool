@@ -84,7 +84,6 @@ func (c *TCPPool) Close() {
 	c.conns = nil
 	c.factory = nil
 	closeFun := c.close
-	c.close = nil
 	c.Mu.Unlock()
 
 	if conns == nil {
